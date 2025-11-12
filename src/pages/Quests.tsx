@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Lock, MapPin, BookOpen, CheckCircle2, Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface Territory {
   id: string;
@@ -79,6 +80,8 @@ const territories: Territory[] = [
 ];
 
 const Quests = () => {
+  const navigate = useNavigate();
+  
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case "Beginner":
@@ -182,6 +185,7 @@ const Quests = () => {
                     className="w-full"
                     variant={isComplete ? "outline" : "default"}
                     disabled={territory.isLocked}
+                    onClick={() => !territory.isLocked && navigate(`/quest/${territory.id}`)}
                   >
                     {territory.isLocked ? (
                       <>
