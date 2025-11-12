@@ -18,54 +18,54 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Profile = () => {
   const userData = {
-    username: "AdventureSeeker",
+    username: "冒險追尋者",
     level: 7,
-    title: "Vocabulary Explorer",
+    title: "詞彙探索者",
     totalGems: 3420,
     totalBadges: 12,
     currentStreak: 14,
     totalQuestions: 456,
     accuracy: 87,
     studyTime: 1240, // minutes
-    joinDate: "January 2024"
+    joinDate: "2024 年 1 月"
   };
 
   const recentActivity = [
     { 
       id: 1, 
-      action: "Completed", 
-      target: "Present Tense Forest - Lesson 8", 
-      time: "2 hours ago",
-      reward: "+25 gems"
+      action: "完成", 
+      target: "現在式森林 - 第 8 課", 
+      time: "2 小時前",
+      reward: "+25 寶石"
     },
     { 
       id: 2, 
-      action: "Unlocked", 
-      target: "Week Warrior Badge", 
-      time: "1 day ago",
-      reward: "+100 gems"
+      action: "解鎖", 
+      target: "週戰士徽章", 
+      time: "1 天前",
+      reward: "+100 寶石"
     },
     { 
       id: 3, 
-      action: "Completed", 
-      target: "Past Tense Plains - Lesson 3", 
-      time: "1 day ago",
-      reward: "+20 gems"
+      action: "完成", 
+      target: "過去式平原 - 第 3 課", 
+      time: "1 天前",
+      reward: "+20 寶石"
     },
     { 
       id: 4, 
-      action: "Purchased", 
-      target: "Treasure Map Background", 
-      time: "2 days ago",
-      reward: "-200 gems"
+      action: "購買", 
+      target: "寶藏地圖背景", 
+      time: "2 天前",
+      reward: "-200 寶石"
     }
   ];
 
   const topicMastery = [
-    { topic: "Present Tense", progress: 85, color: "bg-secondary" },
-    { topic: "Vocabulary", progress: 92, color: "bg-primary" },
-    { topic: "Past Tense", progress: 45, color: "bg-accent" },
-    { topic: "Idioms", progress: 20, color: "bg-explorer" }
+    { topic: "現在式", progress: 85, color: "bg-secondary" },
+    { topic: "詞彙", progress: 92, color: "bg-primary" },
+    { topic: "過去式", progress: 45, color: "bg-accent" },
+    { topic: "慣用語", progress: 20, color: "bg-explorer" }
   ];
 
   return (
@@ -86,12 +86,12 @@ const Profile = () => {
               </h1>
               <div className="flex flex-wrap items-center gap-3 mb-3">
                 <Badge className="bg-primary text-primary-foreground">
-                  Level {userData.level}
+                  等級 {userData.level}
                 </Badge>
                 <Badge variant="outline">{userData.title}</Badge>
               </div>
               <p className="text-sm text-muted-foreground">
-                Member since {userData.joinDate}
+                加入於 {userData.joinDate}
               </p>
             </div>
 
@@ -104,14 +104,14 @@ const Profile = () => {
                     {userData.totalGems.toLocaleString()}
                   </p>
                 </div>
-                <p className="text-xs text-muted-foreground">Gems</p>
+                <p className="text-xs text-muted-foreground">寶石</p>
               </div>
               <div className="text-center">
                 <div className="flex items-center gap-1 justify-center mb-1">
                   <Trophy className="h-5 w-5 text-primary" />
                   <p className="text-2xl font-bold text-foreground">{userData.totalBadges}</p>
                 </div>
-                <p className="text-xs text-muted-foreground">Badges</p>
+                <p className="text-xs text-muted-foreground">徽章</p>
               </div>
             </div>
           </div>
@@ -120,9 +120,9 @@ const Profile = () => {
         {/* Tabs */}
         <Tabs defaultValue="statistics" className="space-y-6">
           <TabsList>
-            <TabsTrigger value="statistics">Statistics</TabsTrigger>
-            <TabsTrigger value="activity">Recent Activity</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
+            <TabsTrigger value="statistics">統計數據</TabsTrigger>
+            <TabsTrigger value="activity">最近活動</TabsTrigger>
+            <TabsTrigger value="settings">設定</TabsTrigger>
           </TabsList>
 
           {/* Statistics Tab */}
@@ -138,7 +138,7 @@ const Profile = () => {
                     <p className="text-2xl font-bold text-foreground">
                       {userData.accuracy}%
                     </p>
-                    <p className="text-sm text-muted-foreground">Accuracy</p>
+                    <p className="text-sm text-muted-foreground">正確率</p>
                   </div>
                 </div>
               </Card>
@@ -152,7 +152,7 @@ const Profile = () => {
                     <p className="text-2xl font-bold text-foreground">
                       {userData.totalQuestions}
                     </p>
-                    <p className="text-sm text-muted-foreground">Questions</p>
+                    <p className="text-sm text-muted-foreground">題目</p>
                   </div>
                 </div>
               </Card>
@@ -166,7 +166,7 @@ const Profile = () => {
                     <p className="text-2xl font-bold text-foreground">
                       {Math.round(userData.studyTime / 60)}h
                     </p>
-                    <p className="text-sm text-muted-foreground">Study Time</p>
+                    <p className="text-sm text-muted-foreground">學習時間</p>
                   </div>
                 </div>
               </Card>
@@ -180,7 +180,7 @@ const Profile = () => {
                     <p className="text-2xl font-bold text-foreground">
                       {userData.currentStreak}
                     </p>
-                    <p className="text-sm text-muted-foreground">Day Streak</p>
+                    <p className="text-sm text-muted-foreground">連續天數</p>
                   </div>
                 </div>
               </Card>
@@ -190,7 +190,7 @@ const Profile = () => {
             <Card className="p-6">
               <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
                 <BookOpen className="h-5 w-5" />
-                Topic Mastery
+                主題精通度
               </h3>
               <div className="space-y-4">
                 {topicMastery.map((topic) => (
@@ -216,12 +216,12 @@ const Profile = () => {
                   <Calendar className="h-6 w-6 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold text-foreground mb-2">Daily Goal</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-2">每日目標</h3>
                   <p className="text-sm text-muted-foreground mb-3">
-                    Complete 3 lessons today
+                    今天完成 3 堂課程
                   </p>
                   <Progress value={66.67} className="h-3 mb-2" />
-                  <p className="text-xs text-muted-foreground">2/3 lessons completed</p>
+                  <p className="text-xs text-muted-foreground">已完成 2/3 堂課程</p>
                 </div>
               </div>
             </Card>
@@ -232,7 +232,7 @@ const Profile = () => {
             <Card className="p-6">
               <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
                 <Award className="h-5 w-5" />
-                Recent Activity
+                最近活動
               </h3>
               <div className="space-y-4">
                 {recentActivity.map((activity) => (
@@ -261,37 +261,37 @@ const Profile = () => {
           {/* Settings Tab */}
           <TabsContent value="settings">
             <Card className="p-6">
-              <h3 className="text-xl font-bold text-foreground mb-6">Settings</h3>
+              <h3 className="text-xl font-bold text-foreground mb-6">設定</h3>
               <div className="space-y-6">
                 <div>
-                  <h4 className="font-semibold text-foreground mb-3">Preferences</h4>
+                  <h4 className="font-semibold text-foreground mb-3">偏好設定</h4>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between p-3 rounded-lg border border-border">
-                      <span className="text-sm text-foreground">Sound Effects</span>
-                      <Button variant="outline" size="sm">On</Button>
+                      <span className="text-sm text-foreground">音效</span>
+                      <Button variant="outline" size="sm">開啟</Button>
                     </div>
                     <div className="flex items-center justify-between p-3 rounded-lg border border-border">
-                      <span className="text-sm text-foreground">Difficulty Level</span>
-                      <Button variant="outline" size="sm">Intermediate</Button>
+                      <span className="text-sm text-foreground">難度等級</span>
+                      <Button variant="outline" size="sm">中級</Button>
                     </div>
                     <div className="flex items-center justify-between p-3 rounded-lg border border-border">
-                      <span className="text-sm text-foreground">Daily Reminder</span>
-                      <Button variant="outline" size="sm">9:00 AM</Button>
+                      <span className="text-sm text-foreground">每日提醒</span>
+                      <Button variant="outline" size="sm">上午 9:00</Button>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-foreground mb-3">Account</h4>
+                  <h4 className="font-semibold text-foreground mb-3">帳號</h4>
                   <div className="space-y-2">
                     <Button variant="outline" className="w-full justify-start">
-                      Change Password
+                      變更密碼
                     </Button>
                     <Button variant="outline" className="w-full justify-start">
-                      Edit Profile
+                      編輯個人檔案
                     </Button>
                     <Button variant="destructive" className="w-full justify-start">
-                      Logout
+                      登出
                     </Button>
                   </div>
                 </div>

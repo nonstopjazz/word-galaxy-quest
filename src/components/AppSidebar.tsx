@@ -14,11 +14,11 @@ import {
 } from "@/components/ui/sidebar";
 
 const navigationItems = [
-  { title: "Home", url: "/", icon: Home },
-  { title: "Quest Map", url: "/quests", icon: Map },
-  { title: "Achievements", url: "/achievements", icon: Trophy },
-  { title: "Gem Shop", url: "/shop", icon: ShoppingBag },
-  { title: "Profile", url: "/profile", icon: User },
+  { title: "首頁", url: "/", icon: Home },
+  { title: "任務地圖", url: "/quests", icon: Map },
+  { title: "成就", url: "/achievements", icon: Trophy },
+  { title: "寶石商店", url: "/shop", icon: ShoppingBag },
+  { title: "個人檔案", url: "/profile", icon: User },
 ];
 
 export function AppSidebar() {
@@ -42,7 +42,7 @@ export function AppSidebar() {
             {open && (
               <div>
                 <h2 className="font-bold text-foreground">WordQuest</h2>
-                <p className="text-xs text-muted-foreground">Chronicles</p>
+                <p className="text-xs text-muted-foreground">編年史</p>
               </div>
             )}
           </div>
@@ -50,7 +50,7 @@ export function AppSidebar() {
 
         {/* Navigation */}
         <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel>導航</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navigationItems.map((item) => {

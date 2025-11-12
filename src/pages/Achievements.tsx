@@ -231,7 +231,7 @@ const BadgeGrid = ({
               ) : achievement.maxProgress ? (
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs">
-                    <span className="text-muted-foreground">Progress</span>
+                    <span className="text-muted-foreground">進度</span>
                     <span className="font-medium text-foreground">
                       {achievement.progress} / {achievement.maxProgress}
                     </span>
@@ -242,7 +242,7 @@ const BadgeGrid = ({
                   />
                 </div>
               ) : (
-                <p className="text-xs text-muted-foreground italic">Keep exploring to unlock</p>
+                <p className="text-xs text-muted-foreground italic">繼續探索以解鎖</p>
               )}
             </div>
           </Card>

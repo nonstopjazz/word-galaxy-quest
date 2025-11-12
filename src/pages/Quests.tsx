@@ -19,63 +19,63 @@ interface Territory {
 const territories: Territory[] = [
   {
     id: "1",
-    name: "Present Tense Forest",
-    description: "Master the basics of present simple and continuous tenses",
+    name: "現在式森林",
+    description: "掌握現在簡單式和現在進行式的基礎",
     difficulty: "Beginner",
     totalLessons: 12,
     completedLessons: 8,
     isLocked: false,
-    category: "Grammar"
+    category: "文法"
   },
   {
     id: "2",
-    name: "Vocabulary Valley",
-    description: "Explore essential daily vocabulary and common phrases",
+    name: "詞彙山谷",
+    description: "探索日常必備詞彙和常用短語",
     difficulty: "Beginner",
     totalLessons: 15,
     completedLessons: 15,
     isLocked: false,
-    category: "Vocabulary"
+    category: "詞彙"
   },
   {
     id: "3",
-    name: "Past Tense Plains",
-    description: "Journey through simple past and past continuous",
+    name: "過去式平原",
+    description: "穿越簡單過去式和過去進行式",
     difficulty: "Intermediate",
     totalLessons: 10,
     completedLessons: 3,
     isLocked: false,
-    category: "Grammar"
+    category: "文法"
   },
   {
     id: "4",
-    name: "Idiom Ruins",
-    description: "Uncover the mysteries of English idioms and expressions",
+    name: "慣用語遺跡",
+    description: "揭開英語慣用語和表達方式的奧秘",
     difficulty: "Intermediate",
     totalLessons: 20,
     completedLessons: 0,
     isLocked: false,
-    category: "Vocabulary"
+    category: "詞彙"
   },
   {
     id: "5",
-    name: "Conditional Canyon",
-    description: "Navigate through first, second, and third conditionals",
+    name: "條件句峽谷",
+    description: "穿梭於第一、第二和第三條件句",
     difficulty: "Advanced",
     totalLessons: 8,
     completedLessons: 0,
     isLocked: true,
-    category: "Grammar"
+    category: "文法"
   },
   {
     id: "6",
-    name: "Phrasal Verb Peak",
-    description: "Climb to mastery of essential phrasal verbs",
+    name: "片語動詞巔峰",
+    description: "攀登至精通必備片語動詞",
     difficulty: "Advanced",
     totalLessons: 18,
     completedLessons: 0,
     isLocked: true,
-    category: "Vocabulary"
+    category: "詞彙"
   }
 ];
 
@@ -95,6 +95,15 @@ const Quests = () => {
     }
   };
 
+  const getDifficultyLabel = (difficulty: string) => {
+    switch (difficulty) {
+      case "Beginner": return "初級";
+      case "Intermediate": return "中級";
+      case "Advanced": return "高級";
+      default: return difficulty;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
@@ -105,19 +114,19 @@ const Quests = () => {
               <MapPin className="h-8 w-8 text-primary" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-foreground">Quest Map</h1>
-              <p className="text-muted-foreground">Choose your next adventure</p>
+              <h1 className="text-4xl font-bold text-foreground">任務地圖</h1>
+              <p className="text-muted-foreground">選擇你的下一個冒險</p>
             </div>
           </div>
         </div>
 
         {/* Filter Badges */}
         <div className="flex flex-wrap gap-2 mb-6">
-          <Badge variant="outline" className="cursor-pointer hover:bg-muted">All Territories</Badge>
-          <Badge variant="outline" className="cursor-pointer hover:bg-muted">Grammar</Badge>
-          <Badge variant="outline" className="cursor-pointer hover:bg-muted">Vocabulary</Badge>
-          <Badge variant="outline" className="cursor-pointer hover:bg-muted">Beginner</Badge>
-          <Badge variant="outline" className="cursor-pointer hover:bg-muted">Intermediate</Badge>
+          <Badge variant="outline" className="cursor-pointer hover:bg-muted">全部領域</Badge>
+          <Badge variant="outline" className="cursor-pointer hover:bg-muted">文法</Badge>
+          <Badge variant="outline" className="cursor-pointer hover:bg-muted">詞彙</Badge>
+          <Badge variant="outline" className="cursor-pointer hover:bg-muted">初級</Badge>
+          <Badge variant="outline" className="cursor-pointer hover:bg-muted">中級</Badge>
         </div>
 
         {/* Territories Grid */}
@@ -148,7 +157,7 @@ const Quests = () => {
                     <div className="text-center">
                       <Lock className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
                       <p className="text-sm text-muted-foreground font-medium">
-                        Complete previous territories to unlock
+                        完成前面的領域以解鎖
                       </p>
                     </div>
                   </div>
@@ -166,15 +175,15 @@ const Quests = () => {
 
                   {/* Difficulty Badge */}
                   <Badge className={`${getDifficultyColor(territory.difficulty)} mb-4`}>
-                    {territory.difficulty}
+                    {getDifficultyLabel(territory.difficulty)}
                   </Badge>
 
                   {/* Progress */}
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Progress</span>
+                      <span className="text-muted-foreground">進度</span>
                       <span className="font-medium text-foreground">
-                        {territory.completedLessons} / {territory.totalLessons} lessons
+                        {territory.completedLessons} / {territory.totalLessons} 課程
                       </span>
                     </div>
                     <Progress value={progress} className="h-2" />
@@ -190,22 +199,22 @@ const Quests = () => {
                     {territory.isLocked ? (
                       <>
                         <Lock className="mr-2 h-4 w-4" />
-                        Locked
+                        已鎖定
                       </>
                     ) : isComplete ? (
                       <>
                         <CheckCircle2 className="mr-2 h-4 w-4" />
-                        Review
+                        複習
                       </>
                     ) : territory.completedLessons > 0 ? (
                       <>
                         <Clock className="mr-2 h-4 w-4" />
-                        Continue
+                        繼續
                       </>
                     ) : (
                       <>
                         <BookOpen className="mr-2 h-4 w-4" />
-                        Start Quest
+                        開始任務
                       </>
                     )}
                   </Button>

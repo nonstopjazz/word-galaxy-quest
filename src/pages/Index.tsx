@@ -41,18 +41,18 @@ const Index = () => {
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <Badge className="bg-primary text-primary-foreground px-4 py-2 text-sm animate-float">
               <Sparkles className="h-4 w-4 mr-2 inline" />
-              WordQuest Chronicles
+              WordQuest 編年史
             </Badge>
             
             <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
-              Embark on Your
+              展開你的
               <span className="block bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
-                English Adventure
+                英語冒險之旅
               </span>
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-              Master English through epic quests, collect precious gems, and unlock legendary achievements
+              透過史詩級任務精通英語，收集珍貴寶石，解鎖傳奇成就
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -62,7 +62,7 @@ const Index = () => {
                 onClick={() => navigate("/quests")}
               >
                 <Compass className="mr-2 h-5 w-5" />
-                Start Your Quest
+                開始冒險
               </Button>
               <Button 
                 size="lg" 
@@ -71,7 +71,7 @@ const Index = () => {
                 onClick={() => navigate("/quests")}
               >
                 <MapPin className="mr-2 h-5 w-5" />
-                View Map
+                查看地圖
               </Button>
             </div>
           </div>
@@ -83,9 +83,9 @@ const Index = () => {
         <div className="max-w-6xl mx-auto space-y-8">
           <div className="text-center space-y-2">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Your Explorer Profile
+              你的探險者檔案
             </h2>
-            <p className="text-muted-foreground">Track your journey through the WordQuest world</p>
+            <p className="text-muted-foreground">追蹤你在 WordQuest 世界的旅程</p>
           </div>
 
           {/* Level Progress */}
@@ -96,12 +96,12 @@ const Index = () => {
                   <Award className="h-8 w-8 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-foreground">Level {explorerLevel}</h3>
-                  <p className="text-sm text-muted-foreground">Vocabulary Explorer</p>
+                  <h3 className="text-2xl font-bold text-foreground">等級 {explorerLevel}</h3>
+                  <p className="text-sm text-muted-foreground">詞彙探索者</p>
                 </div>
               </div>
               <Badge variant="outline" className="border-primary text-primary px-3 py-1">
-                {Math.round((currentExp / expToNextLevel) * 100)}% to Level {explorerLevel + 1}
+                距離等級 {explorerLevel + 1} 還有 {Math.round((currentExp / expToNextLevel) * 100)}%
               </Badge>
             </div>
             <ProgressBar 
@@ -109,7 +109,7 @@ const Index = () => {
               max={expToNextLevel}
             />
             <p className="text-sm text-muted-foreground mt-2">
-              {currentExp} / {expToNextLevel} Explorer EXP
+              {currentExp} / {expToNextLevel} 探索者經驗值
             </p>
           </div>
 
@@ -117,39 +117,39 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <StatCard
               icon={Gem}
-              label="Gems Collected"
+              label="收集的寶石"
               value={gemsCollected.toLocaleString()}
-              subtitle="Total treasure"
+              subtitle="總寶藏"
               variant="treasure"
             />
             <StatCard
               icon={Trophy}
-              label="Badges Earned"
+              label="獲得的徽章"
               value={badgesEarned}
-              subtitle="Achievements unlocked"
+              subtitle="已解鎖成就"
               variant="explorer"
             />
             <StatCard
               icon={BookOpen}
-              label="Lessons Completed"
+              label="完成的課程"
               value={lessonsCompleted}
-              subtitle="Knowledge quests"
+              subtitle="知識任務"
             />
           </div>
 
           {/* Quick Actions */}
           <div className="bg-gradient-to-br from-accent/10 to-primary/10 border border-accent/20 rounded-xl p-8 text-center space-y-4">
             <Target className="h-12 w-12 text-accent mx-auto" />
-            <h3 className="text-2xl font-bold text-foreground">Ready for Your Next Quest?</h3>
+            <h3 className="text-2xl font-bold text-foreground">準備好下一個任務了嗎？</h3>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Continue your adventure and unlock new territories in the WordQuest Chronicles
+              繼續你的冒險，在 WordQuest 編年史中解鎖新領域
             </p>
             <Button 
               size="lg"
               className="bg-accent hover:bg-accent/90 text-accent-foreground mt-4"
               onClick={() => navigate("/quests")}
             >
-              Continue Learning
+              繼續學習
             </Button>
           </div>
         </div>
@@ -160,24 +160,24 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
-              Your Adventure Awaits
+              你的冒險在等待
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
                   icon: MapPin,
-                  title: "Explore Territories",
-                  description: "Navigate through themed learning zones from ancient civilizations to modern cities"
+                  title: "探索領域",
+                  description: "從古代文明到現代城市，穿梭於主題學習區域"
                 },
                 {
                   icon: Gem,
-                  title: "Collect Gems",
-                  description: "Earn precious gems for completing lessons and unlock exclusive content"
+                  title: "收集寶石",
+                  description: "完成課程獲得珍貴寶石，解鎖獨家內容"
                 },
                 {
                   icon: Trophy,
-                  title: "Unlock Badges",
-                  description: "Achieve milestones and earn legendary explorer badges for your profile"
+                  title: "解鎖徽章",
+                  description: "達成里程碑，為你的檔案獲得傳奇探險者徽章"
                 }
               ].map((feature, index) => (
                 <div 
