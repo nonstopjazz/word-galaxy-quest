@@ -1,112 +1,35 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Trophy, Award, Star, Zap, Target, Crown, Medal } from "lucide-react";
+import { Trophy } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ACHIEVEMENTS, getRarityColor, getAchievementStats, type Achievement as AchievementType } from "@/data/achievements";
+import { useState, useMemo } from "react";
 
-interface Achievement {
-  id: string;
-  name: string;
-  description: string;
-  icon: typeof Trophy;
-  category: string;
-  rarity: "Common" | "Rare" | "Epic" | "Legendary";
+// Simulate user progress (in real app, this would come from backend/state management)
+interface UserAchievement extends AchievementType {
   unlocked: boolean;
   progress?: number;
-  maxProgress?: number;
   unlockedDate?: string;
 }
 
-const achievements: Achievement[] = [
-  {
-    id: "1",
-    name: "First Steps",
-    description: "Complete your first lesson",
-    icon: Star,
-    category: "Explorer",
-    rarity: "Common",
-    unlocked: true,
-    unlockedDate: "2024-01-15"
-  },
-  {
-    id: "2",
-    name: "Vocabulary Novice",
-    description: "Learn 100 new words",
-    icon: Award,
-    category: "Vocabulary",
-    rarity: "Common",
-    unlocked: true,
-    progress: 100,
-    maxProgress: 100,
-    unlockedDate: "2024-01-20"
-  },
-  {
-    id: "3",
-    name: "Grammar Guardian",
-    description: "Master all Present Tense lessons",
-    icon: Trophy,
-    category: "Grammar",
-    rarity: "Rare",
-    unlocked: true,
-    unlockedDate: "2024-01-25"
-  },
-  {
-    id: "4",
-    name: "Week Warrior",
-    description: "Maintain a 7-day learning streak",
-    icon: Zap,
-    category: "Streak",
-    rarity: "Rare",
-    unlocked: true,
-    progress: 7,
-    maxProgress: 7,
-    unlockedDate: "2024-01-28"
-  },
-  {
-    id: "5",
-    name: "Perfect Score",
-    description: "Get 100% accuracy in 5 consecutive quests",
-    icon: Target,
-    category: "Challenge",
-    rarity: "Epic",
-    unlocked: false,
-    progress: 3,
-    maxProgress: 5
-  },
-  {
-    id: "6",
-    name: "Vocabulary Master",
-    description: "Learn 500 words",
-    icon: Crown,
-    category: "Vocabulary",
-    rarity: "Epic",
-    unlocked: false,
-    progress: 342,
-    maxProgress: 500
-  },
-  {
-    id: "7",
-    name: "Speed Learner",
-    description: "Complete 10 lessons in one day",
-    icon: Zap,
-    category: "Challenge",
-    rarity: "Rare",
-    unlocked: false,
-    progress: 4,
-    maxProgress: 10
-  },
-  {
-    id: "8",
-    name: "Legendary Explorer",
-    description: "Complete all territories",
-    icon: Medal,
-    category: "Explorer",
-    rarity: "Legendary",
-    unlocked: false,
-    progress: 2,
-    maxProgress: 10
-  }
-];
+// Mock user achievement data - simulating some unlocked achievements
+const getUserAchievements = (): UserAchievement[] => {
+  return ACHIEVEMENTS.map((achievement) => {
+    // Simulate some unlocked achievements for demo
+    const isUnlocked = Math.random() > 0.7; // 30% chance unlocked
+    const progress = achievement.maxProgress 
+      ? Math.floor(Math.random() * achievement.maxProgress)
+      : undefined;
+
+    return {
+      ...achievement,
+      unlocked: isUnlocked,
+      progress: isUnlocked ? achievement.maxProgress : progress,
+      unlockedDate: isUnlocked ? "2024-01-" + Math.floor(Math.random() * 28 + 1) : undefined
+    };
+  });
+};
 
 const leaderboard = [
   { rank: 1, name: "Sarah Chen", gems: 15420, level: 24 },
@@ -117,22 +40,22 @@ const leaderboard = [
 ];
 
 const Achievements = () => {
-  const getRarityColor = (rarity: string) => {
-    switch (rarity) {
-      case "Common":
-        return "bg-muted text-muted-foreground";
-      case "Rare":
-        return "bg-secondary/20 text-secondary border-secondary/30";
-      case "Epic":
-        return "bg-accent/20 text-accent border-accent/30";
-      case "Legendary":
-        return "bg-primary/20 text-primary border-primary/30";
-      default:
-        return "bg-muted";
-    }
-  };
+  const [achievements] = useState<UserAchievement[]>(getUserAchievements());
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  
+  const stats = useMemo(() => getAchievementStats(), []);
+  const unlockedCount = useMemo(() => achievements.filter(a => a.unlocked).length, [achievements]);
+  const legendaryUnlockedCount = useMemo(() => 
+    achievements.filter(a => a.rarity === "Legendary" && a.unlocked).length, 
+    [achievements]
+  );
 
-  const unlockedCount = achievements.filter(a => a.unlocked).length;
+  const filteredAchievements = useMemo(() => {
+    if (selectedCategory === "all") return achievements;
+    if (selectedCategory === "unlocked") return achievements.filter(a => a.unlocked);
+    if (selectedCategory === "locked") return achievements.filter(a => !a.unlocked);
+    return achievements.filter(a => a.category === selectedCategory);
+  }, [achievements, selectedCategory]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -150,93 +73,77 @@ const Achievements = () => {
           </div>
 
           {/* Stats Summary */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card className="p-4 bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20">
               <div className="text-center">
                 <p className="text-3xl font-bold text-foreground">
-                  {unlockedCount}/{achievements.length}
+                  {unlockedCount}/{stats.total}
                 </p>
-                <p className="text-sm text-muted-foreground">Badges Unlocked</p>
+                <p className="text-sm text-muted-foreground">徽章已解鎖</p>
               </div>
             </Card>
             <Card className="p-4 bg-gradient-to-br from-secondary/10 to-explorer/10 border-secondary/20">
               <div className="text-center">
                 <p className="text-3xl font-bold text-foreground">
-                  {achievements.filter(a => a.rarity === "Legendary" && a.unlocked).length}
+                  {legendaryUnlockedCount}/{stats.byRarity.Legendary}
                 </p>
-                <p className="text-sm text-muted-foreground">Legendary Badges</p>
+                <p className="text-sm text-muted-foreground">傳說徽章</p>
+              </div>
+            </Card>
+            <Card className="p-4 bg-gradient-to-br from-accent/10 to-primary/10 border-accent/20">
+              <div className="text-center">
+                <p className="text-3xl font-bold text-foreground">
+                  {Math.round((unlockedCount / stats.total) * 100)}%
+                </p>
+                <p className="text-sm text-muted-foreground">完成度</p>
               </div>
             </Card>
             <Card className="p-4">
               <div className="text-center">
                 <p className="text-3xl font-bold text-foreground">4th</p>
-                <p className="text-sm text-muted-foreground">Global Rank</p>
+                <p className="text-sm text-muted-foreground">全球排名</p>
               </div>
             </Card>
           </div>
         </div>
 
-        <Tabs defaultValue="all" className="space-y-6">
-          <TabsList>
-            <TabsTrigger value="all">All Badges</TabsTrigger>
-            <TabsTrigger value="unlocked">Unlocked</TabsTrigger>
-            <TabsTrigger value="locked">In Progress</TabsTrigger>
-            <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
+        <Tabs defaultValue="all" className="space-y-6" onValueChange={setSelectedCategory}>
+          <TabsList className="grid grid-cols-7 w-full">
+            <TabsTrigger value="all">全部</TabsTrigger>
+            <TabsTrigger value="unlocked">已解鎖</TabsTrigger>
+            <TabsTrigger value="locked">進行中</TabsTrigger>
+            <TabsTrigger value="累積作答">累積作答</TabsTrigger>
+            <TabsTrigger value="連續挑戰">連續挑戰</TabsTrigger>
+            <TabsTrigger value="完美答題">完美答題</TabsTrigger>
+            <TabsTrigger value="活動限定">活動限定</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="all" className="space-y-6">
-            <BadgeGrid achievements={achievements} getRarityColor={getRarityColor} />
+          <TabsContent value="all">
+            <BadgeGrid achievements={filteredAchievements} />
           </TabsContent>
 
           <TabsContent value="unlocked">
-            <BadgeGrid 
-              achievements={achievements.filter(a => a.unlocked)} 
-              getRarityColor={getRarityColor} 
-            />
+            <BadgeGrid achievements={filteredAchievements} />
           </TabsContent>
 
           <TabsContent value="locked">
-            <BadgeGrid 
-              achievements={achievements.filter(a => !a.unlocked)} 
-              getRarityColor={getRarityColor} 
-            />
+            <BadgeGrid achievements={filteredAchievements} />
           </TabsContent>
 
-          <TabsContent value="leaderboard">
-            <Card className="p-6">
-              <h3 className="text-xl font-bold text-foreground mb-4">Top Explorers This Week</h3>
-              <div className="space-y-3">
-                {leaderboard.map((player) => (
-                  <div
-                    key={player.rank}
-                    className={`flex items-center justify-between p-4 rounded-lg transition-colors ${
-                      player.name === "You"
-                        ? "bg-primary/10 border-2 border-primary"
-                        : "bg-muted/50 hover:bg-muted"
-                    }`}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
-                        player.rank === 1 ? "bg-primary text-primary-foreground" :
-                        player.rank === 2 ? "bg-secondary text-secondary-foreground" :
-                        player.rank === 3 ? "bg-accent text-accent-foreground" :
-                        "bg-muted text-foreground"
-                      }`}>
-                        {player.rank}
-                      </div>
-                      <div>
-                        <p className="font-semibold text-foreground">{player.name}</p>
-                        <p className="text-sm text-muted-foreground">Level {player.level}</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-bold text-treasure">{player.gems.toLocaleString()}</p>
-                      <p className="text-xs text-muted-foreground">gems</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
+          <TabsContent value="累積作答">
+            <BadgeGrid achievements={filteredAchievements} />
+          </TabsContent>
+
+          <TabsContent value="連續挑戰">
+            <BadgeGrid achievements={filteredAchievements} />
+          </TabsContent>
+
+          <TabsContent value="完美答題">
+            <BadgeGrid achievements={filteredAchievements} />
+          </TabsContent>
+
+          <TabsContent value="活動限定">
+            <BadgeGrid achievements={filteredAchievements} />
           </TabsContent>
         </Tabs>
       </div>
@@ -245,12 +152,20 @@ const Achievements = () => {
 };
 
 const BadgeGrid = ({ 
-  achievements, 
-  getRarityColor 
+  achievements
 }: { 
-  achievements: Achievement[];
-  getRarityColor: (rarity: string) => string;
+  achievements: UserAchievement[];
 }) => {
+  if (achievements.length === 0) {
+    return (
+      <Card className="p-12">
+        <div className="text-center text-muted-foreground">
+          <p className="text-lg">此分類暫無成就</p>
+          <p className="text-sm mt-2">繼續探索，解鎖更多徽章！</p>
+        </div>
+      </Card>
+    );
+  }
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {achievements.map((achievement) => {
@@ -283,17 +198,30 @@ const BadgeGrid = ({
               </div>
 
               {/* Title & Description */}
-              <h3 className="text-lg font-bold text-foreground mb-2">
-                {achievement.name}
-              </h3>
-              <p className="text-sm text-muted-foreground mb-4">
-                {achievement.description}
-              </p>
+              <div className="mb-4">
+                <h3 className="text-lg font-bold text-foreground mb-1">
+                  {achievement.name}
+                </h3>
+                <p className="text-xs text-muted-foreground mb-2">
+                  {achievement.nameEn}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {achievement.description}
+                </p>
+              </div>
 
-              {/* Category */}
-              <Badge variant="outline" className="mb-4">
-                {achievement.category}
-              </Badge>
+              {/* Category & Rewards */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                <Badge variant="outline" className="text-xs">
+                  {achievement.category}
+                </Badge>
+                <Badge className="bg-primary/10 text-primary text-xs">
+                  +{achievement.rewards.exp} EXP
+                </Badge>
+                <Badge className="bg-treasure/10 text-treasure text-xs">
+                  +{achievement.rewards.gems} 💎
+                </Badge>
+              </div>
 
               {/* Progress or Unlock Date */}
               {achievement.unlocked ? (
