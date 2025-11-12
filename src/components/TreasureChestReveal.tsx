@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useConfetti } from "@/hooks/useConfetti";
+import { ConfettiCanvas } from "@/components/ConfettiCanvas";
 import { Gem, Sparkles, Trophy, Zap } from "lucide-react";
 
 interface TreasureReward {
@@ -17,6 +19,14 @@ interface TreasureChestRevealProps {
 
 export const TreasureChestReveal = ({ reward, onContinue }: TreasureChestRevealProps) => {
   const [isOpened, setIsOpened] = useState(false);
+  const { confettiRef, chestOpening } = useConfetti();
+
+  useEffect(() => {
+    if (isOpened) {
+      const rarity = reward.type.toLowerCase() as 'common' | 'rare' | 'legendary';
+      chestOpening(rarity);
+    }
+  }, [isOpened, reward.type, chestOpening]);
 
   const getChestColor = () => {
     switch (reward.type) {
@@ -41,8 +51,10 @@ export const TreasureChestReveal = ({ reward, onContinue }: TreasureChestRevealP
   };
 
   return (
-    <div className="fixed inset-0 bg-background/98 backdrop-blur-lg z-50 flex items-center justify-center animate-fade-in">
-      <Card className="max-w-2xl w-full mx-4 p-8 bg-gradient-to-br from-card to-background">
+    <>
+      <ConfettiCanvas ref={confettiRef} />
+      <div className="fixed inset-0 bg-background/98 backdrop-blur-lg z-50 flex items-center justify-center animate-fade-in">
+        <Card className="max-w-2xl w-full mx-4 p-8 bg-gradient-to-br from-card to-background">
         <div className="text-center space-y-6">
           {/* Title */}
           <div>
@@ -146,5 +158,6 @@ export const TreasureChestReveal = ({ reward, onContinue }: TreasureChestRevealP
         </div>
       </Card>
     </div>
+    </>
   );
 };

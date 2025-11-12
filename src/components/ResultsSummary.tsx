@@ -2,6 +2,9 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { useEffect } from "react";
+import { useConfetti } from "@/hooks/useConfetti";
+import { ConfettiCanvas } from "@/components/ConfettiCanvas";
 import { 
   Trophy, 
   Target, 
@@ -43,12 +46,30 @@ export const ResultsSummary = ({
   timeTaken,
   onContinue,
 }: ResultsSummaryProps) => {
+  const { confettiRef, perfectScore, comboAchievement } = useConfetti();
   const accuracy = Math.round((correctAnswers / totalQuestions) * 100);
   const avgTimePerQuestion = Math.round(timeTaken / totalQuestions);
   const isPerfectScore = accuracy === 100;
   const isSpeedBonus = timeTaken < 300; // Less than 5 minutes
   const minutes = Math.floor(timeTaken / 60);
   const seconds = timeTaken % 60;
+
+  // Trigger celebration effects on mount
+  useEffect(() => {
+    if (isPerfectScore) {
+      setTimeout(() => perfectScore(), 500);
+    } else if (accuracy >= 90) {
+      setTimeout(() => comboAchievement(5), 500);
+    } else if (accuracy >= 80) {
+      setTimeout(() => comboAchievement(3), 500);
+    }
+
+    if (maxComboAchieved >= 7) {
+      setTimeout(() => comboAchievement(7), 1000);
+    } else if (maxComboAchieved >= 5) {
+      setTimeout(() => comboAchievement(5), 1000);
+    }
+  }, [isPerfectScore, accuracy, maxComboAchieved, perfectScore, comboAchievement]);
 
   // Calculate bonuses
   const accuracyBonus = accuracy >= 90 ? 50 : accuracy >= 80 ? 30 : accuracy >= 70 ? 20 : 10;
@@ -72,8 +93,10 @@ export const ResultsSummary = ({
   const PerformanceIcon = performance.icon;
 
   return (
-    <div className="fixed inset-0 bg-background/98 backdrop-blur-lg z-50 overflow-y-auto">
-      <div className="container mx-auto px-4 py-8">
+    <>
+      <ConfettiCanvas ref={confettiRef} />
+      <div className="fixed inset-0 bg-background/98 backdrop-blur-lg z-50 overflow-y-auto">
+        <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
           {/* Header */}
           <div className="text-center space-y-4">
@@ -290,5 +313,6 @@ export const ResultsSummary = ({
         </div>
       </div>
     </div>
+    </>
   );
 };
