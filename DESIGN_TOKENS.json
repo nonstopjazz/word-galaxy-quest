@@ -1,0 +1,205 @@
+{
+  "meta": {
+    "name": "WordQuest Chronicles Design System",
+    "version": "1.0.0",
+    "description": "Complete design tokens for the gamified English learning platform",
+    "author": "WordQuest Design Team"
+  },
+  "colors": {
+    "light": {
+      "primary": "hsl(38, 92%, 50%)",
+      "primary-foreground": "hsl(0, 0%, 100%)",
+      "primary-glow": "hsl(45, 100%, 60%)",
+      "secondary": "hsl(184, 65%, 42%)",
+      "secondary-foreground": "hsl(0, 0%, 100%)",
+      "accent": "hsl(16, 75%, 55%)",
+      "accent-foreground": "hsl(0, 0%, 100%)",
+      "background": "hsl(42, 45%, 96%)",
+      "foreground": "hsl(25, 35%, 15%)",
+      "card": "hsl(40, 40%, 98%)",
+      "card-foreground": "hsl(25, 35%, 15%)",
+      "muted": "hsl(40, 30%, 88%)",
+      "muted-foreground": "hsl(25, 20%, 45%)",
+      "border": "hsl(40, 25%, 85%)",
+      "destructive": "hsl(0, 72%, 51%)",
+      "destructive-foreground": "hsl(0, 0%, 100%)",
+      "success": "hsl(142, 76%, 36%)",
+      "success-bg": "hsl(142, 76%, 95%)",
+      "warning": "hsl(38, 92%, 50%)",
+      "warning-bg": "hsl(38, 92%, 95%)",
+      "info": "hsl(200, 70%, 50%)",
+      "info-bg": "hsl(200, 70%, 95%)",
+      "treasure": "hsl(45, 95%, 55%)",
+      "explorer": "hsl(200, 70%, 50%)",
+      "map": "hsl(30, 35%, 35%)"
+    },
+    "dark": {
+      "primary": "hsl(38, 92%, 55%)",
+      "primary-foreground": "hsl(25, 25%, 8%)",
+      "primary-glow": "hsl(45, 100%, 65%)",
+      "secondary": "hsl(184, 55%, 48%)",
+      "secondary-foreground": "hsl(0, 0%, 100%)",
+      "accent": "hsl(16, 70%, 60%)",
+      "accent-foreground": "hsl(0, 0%, 100%)",
+      "background": "hsl(25, 25%, 8%)",
+      "foreground": "hsl(42, 45%, 95%)",
+      "card": "hsl(25, 20%, 12%)",
+      "card-foreground": "hsl(42, 45%, 95%)",
+      "muted": "hsl(25, 15%, 18%)",
+      "muted-foreground": "hsl(42, 20%, 65%)",
+      "border": "hsl(25, 20%, 20%)",
+      "destructive": "hsl(0, 62%, 45%)",
+      "destructive-foreground": "hsl(0, 0%, 100%)",
+      "success": "hsl(142, 70%, 45%)",
+      "success-bg": "hsl(142, 70%, 15%)",
+      "treasure": "hsl(45, 90%, 60%)",
+      "explorer": "hsl(200, 65%, 55%)",
+      "map": "hsl(30, 25%, 45%)"
+    },
+    "rarity": {
+      "common": "hsl(40, 30%, 88%)",
+      "rare": "hsl(200, 70%, 50%)",
+      "epic": "hsl(280, 70%, 55%)",
+      "legendary": "hsl(38, 92%, 50%)"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "display": ["Fredoka", "Nunito", "sans-serif"],
+      "body": ["Inter", "Noto Sans TC", "system-ui", "sans-serif"],
+      "mono": ["JetBrains Mono", "monospace"]
+    },
+    "fontSize": {
+      "xs": "12px",
+      "sm": "14px",
+      "base": "16px",
+      "lg": "18px",
+      "xl": "20px",
+      "2xl": "24px",
+      "3xl": "30px",
+      "4xl": "36px",
+      "5xl": "48px",
+      "6xl": "60px"
+    },
+    "fontWeight": {
+      "normal": "400",
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700",
+      "extrabold": "800"
+    },
+    "lineHeight": {
+      "tight": "1.2",
+      "normal": "1.5",
+      "relaxed": "1.75"
+    }
+  },
+  "spacing": {
+    "0": "0px",
+    "1": "4px",
+    "2": "8px",
+    "3": "12px",
+    "4": "16px",
+    "5": "20px",
+    "6": "24px",
+    "8": "32px",
+    "10": "40px",
+    "12": "48px",
+    "16": "64px",
+    "20": "80px",
+    "24": "96px"
+  },
+  "borderRadius": {
+    "sm": "4px",
+    "md": "6px",
+    "lg": "12px",
+    "xl": "16px",
+    "2xl": "24px",
+    "full": "9999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px 0 hsl(25 35% 15% / 0.05)",
+    "md": "0 4px 6px -1px hsl(25 35% 15% / 0.1)",
+    "lg": "0 10px 15px -3px hsl(25 35% 15% / 0.1)",
+    "xl": "0 20px 25px -5px hsl(25 35% 15% / 0.1)",
+    "treasure": "0 10px 40px -10px hsl(38 92% 50% / 0.4)",
+    "card": "0 4px 20px -2px hsl(25 35% 15% / 0.08)",
+    "button": "0 4px 12px -2px hsl(38 92% 50% / 0.3)"
+  },
+  "animation": {
+    "duration": {
+      "fast": "150ms",
+      "base": "300ms",
+      "slow": "500ms"
+    },
+    "easing": {
+      "default": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "in": "cubic-bezier(0.4, 0, 1, 1)",
+      "out": "cubic-bezier(0, 0, 0.2, 1)",
+      "in-out": "cubic-bezier(0.4, 0, 0.6, 1)"
+    }
+  },
+  "breakpoints": {
+    "sm": "640px",
+    "md": "768px",
+    "lg": "1024px",
+    "xl": "1280px",
+    "2xl": "1536px"
+  },
+  "components": {
+    "button": {
+      "sizes": {
+        "sm": {
+          "height": "32px",
+          "paddingX": "12px",
+          "fontSize": "12px"
+        },
+        "default": {
+          "height": "40px",
+          "paddingX": "16px",
+          "fontSize": "14px"
+        },
+        "lg": {
+          "height": "48px",
+          "paddingX": "24px",
+          "fontSize": "16px"
+        },
+        "xl": {
+          "height": "56px",
+          "paddingX": "32px",
+          "fontSize": "18px"
+        }
+      }
+    },
+    "card": {
+      "padding": "24px",
+      "borderRadius": "12px",
+      "shadow": "0 4px 20px -2px hsl(25 35% 15% / 0.08)"
+    }
+  },
+  "sounds": {
+    "ui": {
+      "buttonClick": "/sounds/ui/button_click.mp3",
+      "buttonHover": "/sounds/ui/button_hover.mp3",
+      "tabSwitch": "/sounds/ui/tab_switch.mp3"
+    },
+    "feedback": {
+      "correct": "/sounds/feedback/correct_answer.mp3",
+      "wrong": "/sounds/feedback/wrong_answer.mp3",
+      "perfect": "/sounds/feedback/perfect_score.mp3"
+    },
+    "combo": {
+      "combo3": "/sounds/combo/combo_3.mp3",
+      "combo5": "/sounds/combo/combo_5.mp3",
+      "combo7": "/sounds/combo/combo_7.mp3",
+      "combo10": "/sounds/combo/combo_10.mp3"
+    },
+    "achievement": {
+      "common": "/sounds/achievements/badge_common.mp3",
+      "rare": "/sounds/achievements/badge_rare.mp3",
+      "epic": "/sounds/achievements/badge_epic.mp3",
+      "legendary": "/sounds/achievements/badge_legendary.mp3",
+      "levelUp": "/sounds/achievements/level_up.mp3"
+    }
+  }
+}

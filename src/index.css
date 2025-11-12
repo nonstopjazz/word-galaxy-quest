@@ -49,6 +49,14 @@ All colors MUST be HSL.
     --map-brown: 30 35% 35%;
     --explorer-badge: 200 70% 50%;
     
+    /* Functional colors */
+    --success: 142 76% 36%;
+    --success-bg: 142 76% 95%;
+    --warning: 38 92% 50%;
+    --warning-bg: 38 92% 95%;
+    --info: 200 70% 50%;
+    --info-bg: 200 70% 95%;
+    
     /* Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(16 75% 55%) 100%);
     --gradient-card: linear-gradient(to bottom, hsl(40 40% 98%), hsl(42 45% 96%));
@@ -61,22 +69,13 @@ All colors MUST be HSL.
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --radius: 0.75rem;
-
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -115,8 +114,12 @@ All colors MUST be HSL.
     --map-brown: 30 25% 45%;
     --explorer-badge: 200 65% 55%;
     
+    --success: 142 70% 45%;
+    --success-bg: 142 70% 15%;
+    
     --gradient-hero: linear-gradient(135deg, hsl(38 82% 45%) 0%, hsl(16 65% 50%) 100%);
     --shadow-treasure: 0 10px 40px -10px hsl(38 92% 55% / 0.5);
+    
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -135,5 +138,51 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Font optimization */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  /* Custom utility classes */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Interactive hover effects */
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105 active:scale-95;
+  }
+  
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+  
+  /* Glass morphism */
+  .glass {
+    @apply bg-background/80 backdrop-blur-lg;
+  }
+  
+  /* Success/Error states */
+  .state-success {
+    @apply bg-success/10 text-success border-success/20;
+  }
+  
+  .state-error {
+    @apply bg-destructive/10 text-destructive border-destructive/20;
+  }
+  
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
   }
 }
