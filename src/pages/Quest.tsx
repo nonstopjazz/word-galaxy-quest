@@ -8,6 +8,7 @@ import { ComboIndicator } from "@/components/ComboIndicator";
 import { LivesCounter } from "@/components/LivesCounter";
 import { QuestionTimer } from "@/components/QuestionTimer";
 import { FeedbackAnimation } from "@/components/FeedbackAnimation";
+import { ResultsSummary } from "@/components/ResultsSummary";
 import { TreasureChestReveal } from "@/components/TreasureChestReveal";
 import { X, Eye, Sparkles, Award, Gem } from "lucide-react";
 import { toast } from "sonner";
@@ -19,6 +20,13 @@ interface Question {
   correctAnswer: number;
   explanation: string;
   category: string;
+}
+
+interface QuestionResult {
+  questionNumber: number;
+  correct: boolean;
+  category: string;
+  timeTaken: number;
 }
 
 const mockQuestions: Question[] = [
@@ -126,6 +134,7 @@ const Quest = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [combo, setCombo] = useState(0);
+  const [maxCombo, setMaxCombo] = useState(0);
   const [lives, setLives] = useState(3);
   const [totalCorrect, setTotalCorrect] = useState(0);
   const [totalEXP, setTotalEXP] = useState(0);
@@ -133,12 +142,20 @@ const Quest = () => {
   const [showFeedback, setShowFeedback] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [showTreasure, setShowTreasure] = useState(false);
   const [hintsUsed, setHintsUsed] = useState(0);
   const [startTime] = useState(Date.now());
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
+  const [questionsResults, setQuestionsResults] = useState<QuestionResult[]>([]);
 
   const currentQuestion = mockQuestions[currentQuestionIndex];
   const progress = ((currentQuestionIndex + 1) / mockQuestions.length) * 100;
+
+  useEffect(() => {
+    if (combo > maxCombo) {
+      setMaxCombo(combo);
+    }
+  }, [combo, maxCombo]);
 
   const getComboMultiplier = () => {
     if (combo >= 7) return 3;
@@ -175,8 +192,17 @@ const Quest = () => {
       return;
     }
 
+    const timeTaken = Math.floor((Date.now() - questionStartTime) / 1000);
     const correct = selectedAnswer === currentQuestion.correctAnswer;
     setIsCorrect(correct);
+
+    // Store question result
+    setQuestionsResults(prev => [...prev, {
+      questionNumber: currentQuestionIndex + 1,
+      correct,
+      category: currentQuestion.category,
+      timeTaken
+    }]);
 
     if (correct) {
       setCombo(prev => prev + 1);
@@ -216,11 +242,6 @@ const Quest = () => {
       return;
     }
     
-    // Remove one wrong answer
-    const wrongAnswers = currentQuestion.options
-      .map((_, index) => index)
-      .filter(index => index !== currentQuestion.correctAnswer);
-    
     toast.info("Hint: One wrong answer has been removed!", {
       description: `You have ${2 - hintsUsed - 1} hint(s) remaining`
     });
@@ -230,10 +251,11 @@ const Quest = () => {
 
   const getTreasureReward = () => {
     const accuracy = (totalCorrect / mockQuestions.length) * 100;
-    const timeTaken = Math.floor((Date.now() - startTime) / 1000 / 60); // minutes
+    const totalTimeTaken = Math.floor((Date.now() - startTime) / 1000);
+    const timeTakenMinutes = Math.floor(totalTimeTaken / 60);
     
     // Legendary: 100% accuracy OR time < 5 minutes
-    if (accuracy === 100 || timeTaken < 5) {
+    if (accuracy === 100 || timeTakenMinutes < 5) {
       const gems = 150 + Math.floor(Math.random() * 150);
       return {
         type: "Legendary" as const,
@@ -243,7 +265,7 @@ const Quest = () => {
     }
     
     // Rare: >= 80% accuracy OR 5+ combo achieved
-    if (accuracy >= 80 || combo >= 5) {
+    if (accuracy >= 80 || maxCombo >= 5) {
       const gems = 60 + Math.floor(Math.random() * 40);
       return {
         type: "Rare" as const,
@@ -261,6 +283,11 @@ const Quest = () => {
     };
   };
 
+  const handleResultsContinue = () => {
+    setShowResults(false);
+    setShowTreasure(true);
+  };
+
   const handleQuestComplete = () => {
     navigate("/quests");
   };
@@ -271,12 +298,29 @@ const Quest = () => {
     }
   };
 
-  if (showResults) {
+  const totalTimeTaken = Math.floor((Date.now() - startTime) / 1000);
+
+  if (showTreasure) {
     const reward = getTreasureReward();
     return (
       <TreasureChestReveal
         reward={reward}
         onContinue={handleQuestComplete}
+      />
+    );
+  }
+
+  if (showResults) {
+    return (
+      <ResultsSummary
+        totalQuestions={mockQuestions.length}
+        correctAnswers={totalCorrect}
+        questionsResults={questionsResults}
+        maxComboAchieved={maxCombo}
+        totalEXP={totalEXP}
+        totalGems={totalGems}
+        timeTaken={totalTimeTaken}
+        onContinue={handleResultsContinue}
       />
     );
   }
@@ -417,6 +461,10 @@ const Quest = () => {
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">Current Combo</span>
                   <span className="text-xl font-bold text-primary">{combo}x</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Max Combo</span>
+                  <span className="text-xl font-bold text-accent">{maxCombo}x</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">Total EXP</span>
