@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { StatCard } from "@/components/StatCard";
 import { ProgressBar } from "@/components/ProgressBar";
+import { useNavigate } from "react-router-dom";
 import { 
   Compass, 
   Gem, 
@@ -16,6 +17,8 @@ import {
 import heroImage from "@/assets/hero-adventure.jpg";
 
 const Index = () => {
+  const navigate = useNavigate();
+  
   // Mock data - in real app would come from backend
   const explorerLevel = 7;
   const currentExp = 1250;
@@ -56,6 +59,7 @@ const Index = () => {
               <Button 
                 size="lg" 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                onClick={() => navigate("/quests")}
               >
                 <Compass className="mr-2 h-5 w-5" />
                 Start Your Quest
@@ -64,6 +68,7 @@ const Index = () => {
                 size="lg" 
                 variant="outline"
                 className="border-2 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground px-8 py-6 text-lg transition-all duration-300"
+                onClick={() => navigate("/quests")}
               >
                 <MapPin className="mr-2 h-5 w-5" />
                 View Map
@@ -142,6 +147,7 @@ const Index = () => {
             <Button 
               size="lg"
               className="bg-accent hover:bg-accent/90 text-accent-foreground mt-4"
+              onClick={() => navigate("/quests")}
             >
               Continue Learning
             </Button>
