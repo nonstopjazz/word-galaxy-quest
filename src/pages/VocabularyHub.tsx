@@ -15,8 +15,10 @@ import {
   ChevronRight
 } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const VocabularyHub = () => {
+  const navigate = useNavigate();
   const [todayReviewCount] = useState(47);
   const [masteryLevel] = useState(68);
   const [weeklyProgress] = useState(85);
@@ -33,7 +35,8 @@ const VocabularyHub = () => {
       badge: "推薦",
       badgeVariant: "default" as const,
       count: 24,
-      countLabel: "今日待複習"
+      countLabel: "今日待複習",
+      path: "/vocabulary/srs"
     },
     {
       id: "flashcards",
@@ -45,7 +48,8 @@ const VocabularyHub = () => {
       badge: "熱門",
       badgeVariant: "secondary" as const,
       count: 156,
-      countLabel: "複習池總數"
+      countLabel: "複習池總數",
+      path: "/vocabulary/flashcards"
     },
     {
       id: "quick-quiz",
@@ -57,7 +61,8 @@ const VocabularyHub = () => {
       badge: "新",
       badgeVariant: "outline" as const,
       count: 10,
-      countLabel: "題 / 回合"
+      countLabel: "題 / 回合",
+      path: "/vocabulary/quiz"
     }
   ];
 
@@ -198,7 +203,11 @@ const VocabularyHub = () => {
                       <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:translate-x-1 transition-transform" />
                     </div>
 
-                    <Button className="w-full" variant="default">
+                    <Button 
+                      className="w-full" 
+                      variant="default"
+                      onClick={() => navigate(mode.path)}
+                    >
                       開始複習
                     </Button>
                   </div>
