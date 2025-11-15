@@ -11,6 +11,7 @@ import Quest from "./pages/Quest";
 import Achievements from "./pages/Achievements";
 import Shop from "./pages/Shop";
 import Profile from "./pages/Profile";
+import VocabularyHub from "./pages/VocabularyHub";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +42,7 @@ const App = () => (
                     <Routes>
                       <Route path="/" element={<Index />} />
                       <Route path="/quests" element={<Quests />} />
+                      <Route path="/vocabulary" element={<VocabularyHub />} />
                       <Route path="/achievements" element={<Achievements />} />
                       <Route path="/shop" element={<Shop />} />
                       <Route path="/profile" element={<Profile />} />
