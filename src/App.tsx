@@ -16,6 +16,7 @@ import SRSReview from "./pages/SRSReview";
 import Flashcards from "./pages/Flashcards";
 import QuickQuiz from "./pages/QuickQuiz";
 import VocabularyCollections from "./pages/VocabularyCollections";
+import VocabularyPackDetail from "./pages/VocabularyPackDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -51,6 +52,7 @@ const App = () => (
             <Route path="/vocabulary/flashcards" element={<Flashcards />} />
             <Route path="/vocabulary/quiz" element={<QuickQuiz />} />
             <Route path="/vocabulary/collections" element={<VocabularyCollections />} />
+            <Route path="/vocabulary/pack/:packId" element={<VocabularyPackDetail />} />
                       <Route path="/achievements" element={<Achievements />} />
                       <Route path="/shop" element={<Shop />} />
                       <Route path="/profile" element={<Profile />} />
