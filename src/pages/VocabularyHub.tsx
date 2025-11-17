@@ -28,46 +28,46 @@ const VocabularyHub = () => {
   const [weeklyProgress] = useState(85);
   const [errorRate] = useState(23);
   
-  // 来自社群的单字
-  const [savedWords, setSavedWords] = useState<string[]>(["1", "3"]);
-  const [communityWords] = useState([
+  // 来自社群的单字集
+  const [collectedPacks, setCollectedPacks] = useState<string[]>(["1"]);
+  const [communityPacks] = useState([
     {
       id: "1",
-      word: "serendipity",
-      ipa: "/ˌserənˈdɪpəti/",
-      translation: "意外發現美好事物的能力",
-      example: "Finding this café was pure serendipity.",
-      exampleTranslation: "發現這間咖啡廳純屬偶然的幸運。",
-      source: "英文學習社群",
-      theme: "進階詞彙"
+      title: "全球暖化",
+      theme: "環境議題",
+      description: "探討全球暖化相關的核心詞彙，涵蓋氣候變遷、溫室效應、碳排放等概念",
+      wordCount: 15,
+      source: "環境教育社群",
+      difficulty: "中高級",
+      previewWords: ["greenhouse effect", "carbon footprint", "sustainable"]
     },
     {
       id: "2",
-      word: "ubiquitous",
-      ipa: "/juːˈbɪkwɪtəs/",
-      translation: "無所不在的；普遍存在的",
-      example: "Smartphones have become ubiquitous in modern society.",
-      exampleTranslation: "智慧型手機在現代社會已變得無所不在。",
-      source: "TOEFL 高頻字",
-      theme: "學術英語"
+      title: "少子化",
+      theme: "社會議題",
+      description: "討論少子化現象的相關詞彙，涵蓋人口統計、生育率、社會福利等面向",
+      wordCount: 12,
+      source: "社會學習社群",
+      difficulty: "中級",
+      previewWords: ["birth rate", "fertility", "demographic"]
     },
     {
       id: "3",
-      word: "ephemeral",
-      ipa: "/ɪˈfemərəl/",
-      translation: "短暫的；瞬息的",
-      example: "The beauty of cherry blossoms is ephemeral.",
-      exampleTranslation: "櫻花的美是短暫的。",
-      source: "文學賞析",
-      theme: "文學詞彙"
+      title: "垃圾問題",
+      theme: "環境議題",
+      description: "聚焦於垃圾處理與環境保護的核心詞彙，包含回收、減廢、循環經濟等概念",
+      wordCount: 10,
+      source: "環保行動聯盟",
+      difficulty: "中級",
+      previewWords: ["recycling", "landfill", "biodegradable"]
     }
   ]);
 
-  const toggleSaveWord = (wordId: string) => {
-    setSavedWords(prev => 
-      prev.includes(wordId) 
-        ? prev.filter(id => id !== wordId)
-        : [...prev, wordId]
+  const toggleCollectPack = (packId: string) => {
+    setCollectedPacks(prev => 
+      prev.includes(packId) 
+        ? prev.filter(id => id !== packId)
+        : [...prev, packId]
     );
   };
 
@@ -333,34 +333,35 @@ const VocabularyHub = () => {
           </Card>
         </div>
 
-        {/* Community Words - Collect to Theme Set */}
+        {/* Community Vocabulary Packs */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
                 <Heart className="h-6 w-6 text-destructive" />
-                來自社群的單字
+                來自社群的單字集
               </h2>
-              <p className="text-sm text-muted-foreground mt-1">將喜歡的單字加入你的主題集收藏</p>
+              <p className="text-sm text-muted-foreground mt-1">探索熱門主題的單字集合，一次收藏整套學習</p>
             </div>
             <Button variant="outline" size="sm" onClick={() => navigate('/vocabulary/collections')}>
-              查看收藏列表
+              查看我的收藏
               <ChevronRight className="h-4 w-4 ml-1" />
             </Button>
           </div>
 
-          {/* Community Word Cards */}
+          {/* Vocabulary Pack Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {communityWords.map((word) => {
-              const isSaved = savedWords.includes(word.id);
+            {communityPacks.map((pack) => {
+              const isCollected = collectedPacks.includes(pack.id);
               
               return (
                 <Card 
-                  key={word.id}
-                  className="relative overflow-hidden transition-all duration-300 hover:shadow-xl group"
+                  key={pack.id}
+                  className="relative overflow-hidden transition-all duration-300 hover:shadow-xl group cursor-pointer"
+                  onClick={() => navigate(`/vocabulary/pack/${pack.id}`)}
                 >
-                  {/* Saved Badge */}
-                  {isSaved && (
+                  {/* Collected Badge */}
+                  {isCollected && (
                     <div className="absolute top-4 right-4 z-10">
                       <Badge variant="default" className="bg-success gap-1">
                         <CheckCircle className="h-3 w-3" />
@@ -370,45 +371,64 @@ const VocabularyHub = () => {
                   )}
 
                   <div className="p-6">
-                    {/* Source Tag */}
+                    {/* Tags */}
                     <div className="flex items-center gap-2 mb-3">
                       <Badge variant="outline" className="text-xs">
                         <Tag className="h-3 w-3 mr-1" />
-                        {word.theme}
+                        {pack.theme}
                       </Badge>
-                      <span className="text-xs text-muted-foreground">{word.source}</span>
+                      <Badge variant="secondary" className="text-xs">{pack.difficulty}</Badge>
                     </div>
 
-                    {/* Word */}
+                    {/* Pack Title */}
                     <div className="mb-4">
-                      <h3 className="text-2xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
-                        {word.word}
+                      <h3 className="text-2xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                        {pack.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground mb-2">{word.ipa}</p>
-                      <p className="text-base text-foreground font-medium">{word.translation}</p>
+                      <p className="text-sm text-muted-foreground line-clamp-2">{pack.description}</p>
                     </div>
 
-                    {/* Example */}
-                    <div className="mb-4 p-3 rounded-lg bg-muted/50 border-l-4 border-primary">
-                      <p className="text-sm text-foreground italic mb-1">{word.example}</p>
-                      <p className="text-xs text-muted-foreground">{word.exampleTranslation}</p>
+                    {/* Word Count */}
+                    <div className="mb-4 p-3 rounded-lg bg-primary/10 border-l-4 border-primary">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-foreground font-medium">包含單字</span>
+                        <span className="text-2xl font-bold text-primary">{pack.wordCount}</span>
+                      </div>
                     </div>
+
+                    {/* Preview Words */}
+                    <div className="mb-4">
+                      <p className="text-xs text-muted-foreground mb-2">預覽單字：</p>
+                      <div className="flex flex-wrap gap-1">
+                        {pack.previewWords.map((word, idx) => (
+                          <Badge key={idx} variant="outline" className="text-xs">
+                            {word}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Source */}
+                    <p className="text-xs text-muted-foreground mb-4">{pack.source}</p>
 
                     {/* Action Button */}
                     <Button 
                       className="w-full"
-                      variant={isSaved ? "secondary" : "default"}
-                      onClick={() => toggleSaveWord(word.id)}
+                      variant={isCollected ? "secondary" : "default"}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleCollectPack(pack.id);
+                      }}
                     >
-                      {isSaved ? (
+                      {isCollected ? (
                         <>
                           <CheckCircle className="h-4 w-4 mr-2" />
-                          已加入收藏
+                          已收藏
                         </>
                       ) : (
                         <>
                           <BookmarkPlus className="h-4 w-4 mr-2" />
-                          加入主題集
+                          收藏單字集
                         </>
                       )}
                     </Button>
@@ -418,8 +438,8 @@ const VocabularyHub = () => {
             })}
           </div>
 
-          {/* Saved Words Summary */}
-          {savedWords.length > 0 && (
+          {/* Collected Packs Summary */}
+          {collectedPacks.length > 0 && (
             <Card className="mt-6 p-6 bg-gradient-to-br from-success/10 to-primary/10 border-success/20">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -427,14 +447,19 @@ const VocabularyHub = () => {
                     <BookmarkPlus className="h-5 w-5 text-success" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-foreground">你已收藏 {savedWords.length} 個單字</h4>
+                    <h4 className="font-semibold text-foreground">你已收藏 {collectedPacks.length} 個單字集</h4>
                     <p className="text-sm text-muted-foreground">這些單字已加入你的複習池，開始複習吧！</p>
                   </div>
                 </div>
-                <Button onClick={() => navigate('/vocabulary/srs')}>
-                  開始複習
-                  <ChevronRight className="h-4 w-4 ml-1" />
-                </Button>
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={() => navigate('/vocabulary/collections')}>
+                    管理收藏
+                  </Button>
+                  <Button onClick={() => navigate('/vocabulary/srs')}>
+                    開始複習
+                    <ChevronRight className="h-4 w-4 ml-1" />
+                  </Button>
+                </div>
               </div>
             </Card>
           )}
