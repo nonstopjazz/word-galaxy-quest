@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -117,6 +118,7 @@ const levelLabels = {
 };
 
 export default function VideoCourses() {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
@@ -260,7 +262,11 @@ export default function VideoCourses() {
           <TabsContent value="all" className="mt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredCourses.map((course) => (
-                <Card key={course.id} className="group hover:shadow-lg transition-all border-border overflow-hidden">
+                <Card 
+                  key={course.id} 
+                  className="group hover:shadow-lg transition-all border-border overflow-hidden cursor-pointer"
+                  onClick={() => navigate(`/course/${course.id}`)}
+                >
                   <div className="relative">
                     <AspectRatio ratio={16/9} className="bg-muted">
                       <img
@@ -272,7 +278,6 @@ export default function VideoCourses() {
                       <Button
                         size="icon"
                         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full h-14 w-14 opacity-0 group-hover:opacity-100 transition-opacity"
-                        onClick={() => setSelectedCourse(course)}
                       >
                         <Play className="h-6 w-6" />
                       </Button>
