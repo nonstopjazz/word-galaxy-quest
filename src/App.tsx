@@ -11,6 +11,7 @@ import Quest from "./pages/Quest";
 import Achievements from "./pages/Achievements";
 import Shop from "./pages/Shop";
 import Profile from "./pages/Profile";
+import VideoCourses from "./pages/VideoCourses";
 import VocabularyHub from "./pages/VocabularyHub";
 import SRSReview from "./pages/SRSReview";
 import Flashcards from "./pages/Flashcards";
@@ -47,6 +48,7 @@ const App = () => (
                     <Routes>
                       <Route path="/" element={<Index />} />
                       <Route path="/quests" element={<Quests />} />
+                      <Route path="/courses" element={<VideoCourses />} />
             <Route path="/vocabulary" element={<VocabularyHub />} />
             <Route path="/vocabulary/srs" element={<SRSReview />} />
             <Route path="/vocabulary/flashcards" element={<Flashcards />} />
