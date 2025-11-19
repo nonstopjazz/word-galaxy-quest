@@ -22,6 +22,7 @@ interface Course {
   lessons: number;
   completedLessons: number;
   instructor: string;
+  type?: "standard" | "drip"; // drip = 需要依序完成單元
 }
 
 const mockCourses: Course[] = [
@@ -49,7 +50,8 @@ const mockCourses: Course[] = [
     progress: 30,
     lessons: 10,
     completedLessons: 3,
-    instructor: "David Wang"
+    instructor: "David Wang",
+    type: "drip"
   },
   {
     id: "3",
@@ -265,7 +267,7 @@ export default function VideoCourses() {
                 <Card 
                   key={course.id} 
                   className="group hover:shadow-lg transition-all border-border overflow-hidden cursor-pointer"
-                  onClick={() => navigate(`/course/${course.id}`)}
+                  onClick={() => navigate(course.type === "drip" ? `/drip-course/${course.id}` : `/course/${course.id}`)}
                 >
                   <div className="relative">
                     <AspectRatio ratio={16/9} className="bg-muted">

@@ -13,6 +13,7 @@ import Shop from "./pages/Shop";
 import Profile from "./pages/Profile";
 import VideoCourses from "./pages/VideoCourses";
 import CourseDetail from "./pages/CourseDetail";
+import DripCourse from "./pages/DripCourse";
 import VocabularyHub from "./pages/VocabularyHub";
 import SRSReview from "./pages/SRSReview";
 import Flashcards from "./pages/Flashcards";
@@ -51,6 +52,7 @@ const App = () => (
                       <Route path="/quests" element={<Quests />} />
                       <Route path="/courses" element={<VideoCourses />} />
                       <Route path="/course/:courseId" element={<CourseDetail />} />
+                      <Route path="/drip-course/:courseId" element={<DripCourse />} />
             <Route path="/vocabulary" element={<VocabularyHub />} />
             <Route path="/vocabulary/srs" element={<SRSReview />} />
             <Route path="/vocabulary/flashcards" element={<Flashcards />} />
