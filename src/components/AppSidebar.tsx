@@ -1,4 +1,4 @@
-import { Home, Map, Trophy, ShoppingBag, User, Menu, BookOpen, Video, Settings } from "lucide-react";
+import { Home, Map, Trophy, ShoppingBag, User, Menu, BookOpen, Video, Settings, FileText, Tag, Sparkles } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
@@ -21,7 +21,17 @@ const navigationItems = [
   { title: "成就", url: "/achievements", icon: Trophy },
   { title: "寶石商店", url: "/shop", icon: ShoppingBag },
   { title: "個人檔案", url: "/profile", icon: User },
-  { title: "課程管理", url: "/course-management", icon: Settings },
+];
+
+const adminItems = [
+  { title: "後台管理中心", url: "/admin", icon: Settings },
+  { title: "影片課程管理", url: "/admin/course-management", icon: Video },
+  { title: "模擬考試管理", url: "/admin/exam-management", icon: FileText },
+  { title: "單字複習管理", url: "/admin/vocabulary-management", icon: BookOpen },
+  { title: "任務地圖管理", url: "/admin/quest-map-management", icon: Map },
+  { title: "寶石商店管理", url: "/admin/shop-management", icon: ShoppingBag },
+  { title: "成就管理", url: "/admin/achievement-management", icon: Trophy },
+  { title: "標籤管理", url: "/admin/tag-management", icon: Tag },
 ];
 
 export function AppSidebar() {
@@ -80,9 +90,39 @@ export function AppSidebar() {
                 );
               })}
             </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
+        </SidebarGroupContent>
+      </SidebarGroup>
+
+      <SidebarGroup>
+        <SidebarGroupLabel>後台管理</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            {adminItems.map((item) => {
+              const Icon = item.icon;
+              const active = isActive(item.url);
+              
+              return (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink
+                      to={item.url}
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+                        active
+                          ? "bg-primary/10 text-primary font-medium"
+                          : "text-foreground hover:bg-muted"
+                      }`}
+                    >
+                      <Icon className="h-5 w-5" />
+                      {open && <span>{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            })}
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
     </Sidebar>
   );
 }

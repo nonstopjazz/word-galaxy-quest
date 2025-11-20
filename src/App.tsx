@@ -16,6 +16,13 @@ import CourseDetail from "./pages/CourseDetail";
 import DripCourse from "./pages/DripCourse";
 import CourseManagement from "./pages/CourseManagement";
 import CourseEdit from "./pages/CourseEdit";
+import AdminDashboard from "./pages/AdminDashboard";
+import ExamManagement from "./pages/ExamManagement";
+import VocabularyManagement from "./pages/VocabularyManagement";
+import QuestMapManagement from "./pages/QuestMapManagement";
+import ShopManagement from "./pages/ShopManagement";
+import AchievementManagement from "./pages/AchievementManagement";
+import TagManagement from "./pages/TagManagement";
 import VocabularyHub from "./pages/VocabularyHub";
 import SRSReview from "./pages/SRSReview";
 import Flashcards from "./pages/Flashcards";
@@ -55,8 +62,15 @@ const App = () => (
                       <Route path="/courses" element={<VideoCourses />} />
                       <Route path="/course/:courseId" element={<CourseDetail />} />
                       <Route path="/drip-course/:courseId" element={<DripCourse />} />
-                      <Route path="/course-management" element={<CourseManagement />} />
-                      <Route path="/course-management/:courseId/edit" element={<CourseEdit />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/course-management" element={<CourseManagement />} />
+            <Route path="/admin/course-management/:courseId/edit" element={<CourseEdit />} />
+            <Route path="/admin/exam-management" element={<ExamManagement />} />
+            <Route path="/admin/vocabulary-management" element={<VocabularyManagement />} />
+            <Route path="/admin/quest-map-management" element={<QuestMapManagement />} />
+            <Route path="/admin/shop-management" element={<ShopManagement />} />
+            <Route path="/admin/achievement-management" element={<AchievementManagement />} />
+            <Route path="/admin/tag-management" element={<TagManagement />} />
             <Route path="/vocabulary" element={<VocabularyHub />} />
             <Route path="/vocabulary/srs" element={<SRSReview />} />
             <Route path="/vocabulary/flashcards" element={<Flashcards />} />
