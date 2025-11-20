@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,6 +39,7 @@ interface Course {
 }
 
 const CourseManagement = () => {
+  const navigate = useNavigate();
   const [courses, setCourses] = useState<Course[]>([
     {
       id: "1",
@@ -277,7 +279,7 @@ const CourseManagement = () => {
                     variant="outline" 
                     size="sm" 
                     className="flex-1"
-                    onClick={() => handleEdit(course)}
+                    onClick={() => navigate(`/course-management/${course.id}/edit`)}
                   >
                     <Edit className="h-4 w-4 mr-2" />
                     編輯
@@ -321,7 +323,7 @@ const CourseManagement = () => {
                     variant="outline" 
                     size="sm" 
                     className="flex-1"
-                    onClick={() => handleEdit(course)}
+                    onClick={() => navigate(`/course-management/${course.id}/edit`)}
                   >
                     <Edit className="h-4 w-4 mr-2" />
                     編輯
@@ -365,7 +367,7 @@ const CourseManagement = () => {
                     variant="outline" 
                     size="sm" 
                     className="flex-1"
-                    onClick={() => handleEdit(course)}
+                    onClick={() => navigate(`/course-management/${course.id}/edit`)}
                   >
                     <Edit className="h-4 w-4 mr-2" />
                     編輯
