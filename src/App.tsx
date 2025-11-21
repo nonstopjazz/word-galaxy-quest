@@ -31,6 +31,7 @@ import VocabularyCollections from "./pages/VocabularyCollections";
 import VocabularyPackDetail from "./pages/VocabularyPackDetail";
 import Landing from "./pages/Landing";
 import CourseSalesDetail from "./pages/CourseSalesDetail";
+import NewsReading from "./pages/NewsReading";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -45,6 +46,7 @@ const App = () => (
           {/* Pages without sidebar - Landing and Sales pages */}
           <Route path="/landing" element={<Landing />} />
           <Route path="/sales/course/:courseId" element={<CourseSalesDetail />} />
+          <Route path="/news/:articleId" element={<NewsReading />} />
           <Route path="/quest/:lessonId" element={<Quest />} />
           
           {/* All other pages with sidebar */}
