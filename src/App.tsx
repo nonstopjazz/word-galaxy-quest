@@ -42,7 +42,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          {/* Quest page without sidebar */}
+          {/* Pages without sidebar - Landing and Sales pages */}
+          <Route path="/landing" element={<Landing />} />
+          <Route path="/sales/course/:courseId" element={<CourseSalesDetail />} />
           <Route path="/quest/:lessonId" element={<Quest />} />
           
           {/* All other pages with sidebar */}
@@ -60,8 +62,6 @@ const App = () => (
                   <main className="flex-1">
                     <Routes>
                       <Route path="/" element={<Index />} />
-                      <Route path="/landing" element={<Landing />} />
-                      <Route path="/sales/course/:courseId" element={<CourseSalesDetail />} />
                       <Route path="/quests" element={<Quests />} />
                       <Route path="/courses" element={<VideoCourses />} />
                       <Route path="/course/:courseId" element={<CourseDetail />} />
