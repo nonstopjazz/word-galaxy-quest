@@ -29,6 +29,8 @@ import Flashcards from "./pages/Flashcards";
 import QuickQuiz from "./pages/QuickQuiz";
 import VocabularyCollections from "./pages/VocabularyCollections";
 import VocabularyPackDetail from "./pages/VocabularyPackDetail";
+import Landing from "./pages/Landing";
+import CourseSalesDetail from "./pages/CourseSalesDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -58,6 +60,8 @@ const App = () => (
                   <main className="flex-1">
                     <Routes>
                       <Route path="/" element={<Index />} />
+                      <Route path="/landing" element={<Landing />} />
+                      <Route path="/sales/course/:courseId" element={<CourseSalesDetail />} />
                       <Route path="/quests" element={<Quests />} />
                       <Route path="/courses" element={<VideoCourses />} />
                       <Route path="/course/:courseId" element={<CourseDetail />} />
